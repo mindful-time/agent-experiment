@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "tools as llm"
+name = "Agent Experiment"
 version = "0.0.1"
-description = "Experimenting tools with llm where llm can call other llms to use to build thing using python repl"
+description = "Experimenting with agent with tools like aider, langchain, langgraph, etc"
 authors = ["Mindfultime <mindful.time@outlook.com>"]
 license = "MIT"
 readme = "README.md"
