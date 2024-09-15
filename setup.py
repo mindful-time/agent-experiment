@@ -4,6 +4,7 @@ load_dotenv()
 
 from azure.identity import ClientSecretCredential
 from azure.keyvault.secrets import SecretClient
+from langsmith import Client
 
 
 
@@ -21,6 +22,7 @@ class Setup:
         if self.secret_client:
             print(self.setup_openai_key())
             print( self.setup_langchain_key())
+            Client()
             return {"status": "success", "message": "Environment variables setup successfully"}
         else:
             return {"status": "error", "message": "Failed to setup environment variables"}
@@ -52,9 +54,11 @@ class Setup:
         secret = self.secret_client.get_secret("LANGCHAIN-API-KEY")
         os.environ["LANGCHAIN_API_KEY"] = secret.value
         os.environ["LANGCHAIN_TRACING_V2"] = "true"
-        os.environ["LANGCHAIN_PROJECT"] = "tools-as-llm"
+        os.environ["LANGCHAIN_PROJECT"] = "agent-experiment"
         
-        return {"status": "success", "message": "Langchain key setup successfully"}
+        return {"status": "success", "message": "Langchain key setup successfully",
+                "project": os.environ["LANGCHAIN_PROJECT"]
+                }
     
 
 setup = Setup()
