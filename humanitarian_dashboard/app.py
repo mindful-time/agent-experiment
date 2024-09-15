@@ -2,6 +2,7 @@ from flask import Flask, render_template, send_file
 import json
 import pandas as pd
 import folium
+from weasyprint import HTML
 
 app = Flask(__name__)
 
@@ -16,8 +17,17 @@ def index():
 
 @app.route('/download')
 def download_pdf():
-    # Functionality to generate and download PDF
-    pass
+    # Render the HTML template to a string
+    rendered = render_template('index.html', data=data)
+    # Convert the HTML to PDF
+    pdf = HTML(string=rendered).write_pdf()
+    # Send the PDF as a response
+    return send_file(
+        pdf,
+        as_attachment=True,
+        download_name='humanitarian_dashboard.pdf',
+        mimetype='application/pdf'
+    )
 
 def main():
     print("Hey! Welcome to the Humanitarian Dashboard!")
