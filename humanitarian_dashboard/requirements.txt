@@ -1,1 +1,5 @@
-# This file lists the dependencies for the Humanitarian Dashboard project.
+Flask
+folium
+pandas
+plotly
+weasyprint
