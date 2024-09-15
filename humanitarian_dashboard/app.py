@@ -1,37 +1,18 @@
-from flask import Flask, render_template, send_file
+import streamlit as st
 import json
-import pandas as pd
-import folium
-from weasyprint import HTML
-
-app = Flask(__name__)
 
 # Load extracted data
 with open('data/extracted_data.json') as f:
     data = json.load(f)
 
-@app.route('/')
-def index():
-    # Prepare data for visualization
-    return render_template('index.html', data=data)
+# Dashboard title
+st.title('Mozambique Humanitarian Dashboard')
 
-@app.route('/download')
-def download_pdf():
-    # Render the HTML template to a string
-    rendered = render_template('index.html', data=data)
-    # Convert the HTML to PDF
-    pdf = HTML(string=rendered).write_pdf()
-    # Send the PDF as a response
-    return send_file(
-        pdf,
-        as_attachment=True,
-        download_name='humanitarian_dashboard.pdf',
-        mimetype='application/pdf'
-    )
+# Display tables and important data points
+for table in data['tables']:
+    st.subheader(table['name'])
+    st.write(table['data'])
 
-def main():
-    print("Hey! Welcome to the Humanitarian Dashboard!")
-
-if __name__ == '__main__':
-    main()
-    app.run(debug=True)
+st.subheader('Important Data Points')
+for point in data['important_data_points']:
+    st.write('- ' + point)
