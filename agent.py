@@ -58,7 +58,7 @@ def create_aider_agent(llm):
     Tool(
         name="add_dependencies",
         func=lambda dependencies: add_dependencies(dependencies),
-        description="Use this tool to add dependencies to the project"
+        description="Use this tool to add dependencies to the project make sure to add the dependencies full name like streamlit, pandas, numpy, sklearn, etc"
     )]
     
     prompt = ChatPromptTemplate.from_messages([
