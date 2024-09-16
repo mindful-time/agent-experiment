@@ -1,5 +1,0 @@
-Flask
-folium
-pandas
-plotly
-weasyprint
